@@ -1,8 +1,9 @@
 <div class="container">
+	<div class="jumbotron text-center">
+			<h4 class="display-4">Proposal List</h4>
+		</div>
 	<div class="list-group">
-		<a class="list-group-item list-group-item-action active">
-			<h1>Proposal List</h1>
-		</a>
+		
 		<span *ngFor="let proposal of proposals">
 			<a routerLink="/proposal/{{proposal.id}}" class="proposal-link list-group-item list-group-item-action">
 				<div class="d-flex w-100 justify-content-between">

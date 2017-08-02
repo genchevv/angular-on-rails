@@ -1,35 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Rx';
 import { Document } from './document';
+import { DocumentService } from './document.service';
 
 @Component({
 	moduleId: module.id,
 	selector: 'documents',
 	templateUrl: 'documents.component.html',
-	styleUrls: ['documents.component.css']
+	styleUrls: ['documents.component.css'],
+	providers: [ DocumentService ]
 })
-export class DocumentsComponent {
+export class DocumentsComponent implements OnInit {
 	pageTitle: string = "Document Dashboard"
-	documents: Document[] = [
-		{
-			title: "My First Doc",
-			description: "adsdasd das das",
-			file_url: "http://google.com",
-			updated_at: "11/11/16",
-			image_url: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Mistakes-to-avoid-when-hiring-freelancers.jpg"
-		},
-		{
-			title: "My Second Doc",
-			description: "adsdasd das das",
-			file_url: "http://google.com",
-			updated_at: "11/11/16",
-			image_url: "https://cdn.pixabay.com/photo/2015/01/21/14/14/freelancer-606762_960_720.jpg"
-		},
-		{
-			title: "My Last Doc",
-			description: "adsdasd das das",
-			file_url: "http://google.com",
-			updated_at: "11/11/16",
-			image_url: "http://maxpixel.freegreatpicture.com/static/photo/1x/Workplace-Apple-Freelancer-Imac-Ipad-Computer-606761.jpg"
-		}
-	]
+	documents: Document[];
+	errorMessage: string;
+	mode = "Observable";
+
+	constructor(
+		private documentService: DocumentService
+	) {}
+
+	ngOnInit() {
+		let timer = Observable.timer(0, 5000);
+		timer.subscribe(() => this.getDocuments());
+	}
+
+	getDocuments() {
+		this.documentService.getDocuments()
+			.subscribe(
+				documents => this.documents = documents,
+				error => this.errorMessage = <any>error
+			);
+	}
 }

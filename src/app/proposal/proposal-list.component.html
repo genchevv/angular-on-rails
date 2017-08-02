@@ -3,13 +3,15 @@
 		<a class="list-group-item list-group-item-action active">
 			<h1>Proposal List</h1>
 		</a>
-		<div *ngFor="let proposal of proposals" class="proposal-span list-group-item list-group-item-action">
-			<a routerLink="/proposal/{{proposal.id}}" class="proposal-link list-group-item-action">
-				<h5 class="mb-1">{{proposal.customer}}</h5>
+		<span *ngFor="let proposal of proposals">
+			<a routerLink="/proposal/{{proposal.id}}" class="proposal-link list-group-item list-group-item-action">
+				<div class="d-flex w-100 justify-content-between">
+			      <h5 class="mb-1">{{proposal.customer}}</h5>
+			    </div>
 				<p class="list-group-item-text">
-					{{ proposal.hourly_rate * proposal.estimated_hours }}
+					{{ proposal.hourly_rate * proposal.estimated_hours | currency:'USD':true:'.0' }}
 				</p>
 			</a>
-		</div>
+		</span>
 	</div>
 </div>
